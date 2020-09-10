@@ -1,0 +1,33 @@
+footer#footer.row
+	footer
+
+		each css in styles
+			link(type="text/css" rel="stylesheet" href= css)
+		link(type="text/css" rel="stylesheet" href="/css/styles.css")
+
+	div#footer-left.pull-left.col-xs-12.col-sm-12.col-md-4.col-lg-4
+		ul
+			li
+				a(href="/http://wwww.agprog.net/") Créé par agprog.net
+			li
+				a(href="/licence/") Informations de licence
+
+	div#footer-medium.pull-left.col-xs-12.col-sm-12.col-md-4.col-lg-4
+		ul
+			li
+				a(href="/" role="navigation") Accueil
+			li
+				a(href="/prestations/" role="navigation") Prestations
+			li
+				a(href="/contact/" role="navigation") Contact
+
+	div#footer-right.pull-left.col-xs-12.col-sm-12.col-md-3.col-lg-3
+		ul
+			li
+				a(href="/mentions/") Mentions légales
+			li
+				a(href="/sitemap/") Plan du site
+	div#footer-arrow.pull-left.col-xs-12.col-sm-12.col-md-1.col-lg-1
+		a(href="#") &nbsp;
+		p#footer-arrow-legend Retour
+			

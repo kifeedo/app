@@ -1,0 +1,25 @@
+extends layout
+block content
+	div#wrapper(ng-controller="IndexCtl")
+		if context.log
+			connect(log='#{context.log.title}')
+		include menu
+		include header
+		section#row1-body.row
+			div#row1-left-content.content.liste.col-xs-12.col-sm-12.col-md-6.col-lg-7
+				section.hpart
+					p.titre-rubrique Bienvenue
+					div#welcome(ng-bind-html='welcome')
+			div#row1-right-content.content.form.col-xs-12.col-sm-12.col-md-6.col-lg-5
+				section.hpart
+					a.a-title(href="/actualites/")
+						p.titre-rubrique Manifestations
+					carousel(sens='1',defilement='v',instance='0',slides='actualites',template='/static/js/index/templates/carousel-content.html')
+				
+				section.hpart
+					p.titre-rubrique Adresses &amp; Horaires
+					panel(instance='0',items='cours',template='/static/js/index/templates/panel-content.html')
+		section#row2-body.row
+			p.titre-rubrique Galeries photos
+			flexbox(slides='galeries',instance='0',template='/static/js/index/templates/flexbox-content.html')
+		include footer

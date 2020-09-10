@@ -1,0 +1,9 @@
+extends layout
+block content
+	section#principal
+		h1#titre.text-center= prestation.prestation
+		div#illustration
+			img.image.text-center(src=`/images/${prestation.illustration}`)
+		br
+		div#content
+			div !{prestation.content}

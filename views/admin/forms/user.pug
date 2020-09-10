@@ -1,0 +1,26 @@
+include ../../mixins/widgets.jade
+h2#titre {{form_title}}
+div#message 
+	!= context.flash
+form#user-form(class="right-form",action="/admin/user/put/",enctype="multipart/form-data",method="POST")
+	input(type="hidden",id="show_form",name="show_form",value="{{showform}}")
+	input(type="hidden",id="csrf_token",name="csrf_token",value="#{context.csrf_token}")
+	input(type="hidden",id="id",name="id",value="#{objet._id}")
+	+input_line_valid('pseudo','Pseudo :','{{objet.pseudo}}',objet,{})
+	+input_line_valid('firstname','Prénom :','{{objet.firstname}}',objet,{})
+	+input_line_valid('lastname','Nom :','{{objet.lastname}}',objet,{})
+	+input_line_valid('email','Adresse mail :','{{objet.email}}',objet,{})
+	p.form-line(ng-show="showform == 'edit'")
+		label(for="change") Changer mot de passe : 
+		input(type='button',value='Changer',ng-click='chgpwd=true')
+	div(ng-hide="showform == 'edit'")
+		+input_pwd_valid('password','Mot de passe : ',objet,{})
+		+input_pwd('confirm','Confirmation : ',{})
+	+select_line('role','Role :',["admin","membre"],'{{objet.role}}',{'ng-model':'objet.role','ng-init':"objet.role='membre'"})
+	script
+		| var content = !{JSON.stringify(objet)}
+	p.form-line
+		input(type="submit",id="submit",name="submit",value="Valider")
+
+div(id="chgpwd",ng-show="showform == 'edit'")
+	chg-pwd

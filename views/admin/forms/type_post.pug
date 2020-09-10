@@ -1,0 +1,16 @@
+include ../../mixins/widgets
+div#message 
+	!= context.flash
+form#type_post-form(class="right-form",action=`/admin/type_post/${action}`,enctype="multipart/form-data",method="POST")
+	input(type="hidden",id="csrf_token",name="csrf_token",value='#{context.csrf_token}')
+	input(type="hidden",id="id",name="id",value="#{objet.id}")
+	+input_line_valid('prenom','Prénom :',"",objet,{})
+	+input_line_valid('nom','Nom :',"",objet,{})
+	+text_line('login','Login :',"",{})
+	+input_file('avatar','Fichier à inclure :','/uploads/docs',"",{})
+	+input_line('password','Mot de passe :',"",{})
+	input(type='hidden',id='visible',name='visible',value="")
+	script
+		| var content = !{JSON.stringify(objet)}
+	p.form-line
+		input(type="submit",id="submit",name="submit",value="Valider")

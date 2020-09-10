@@ -1,0 +1,14 @@
+p Suppresion de l'objet #{schema} :
+if liste
+	div#warning 
+		p Attention, &ecirc;tes vous s&ucirc;r de vouloir supprimer cet (ces) element(s) :
+		ul
+			each elt in liste
+				li #{elt.title}
+		div#confirm
+			form#form-no(action="/admin/#{schema}",method="GET")
+				input#no(type="submit",value="Non")
+			form#form-yes(action="/admin/#{schema}/delete/" method="POST")
+				input(type="hidden",name="csrf_token",value="#{context.csrf_token}")
+				input(type="hidden",name="ids",value="#{ids}")
+				input#yes(type="submit", value="Oui")

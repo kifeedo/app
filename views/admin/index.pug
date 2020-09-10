@@ -1,0 +1,12 @@
+extends ../layout
+block content
+	div#admin-wrapper
+		if context.log
+			connect(log="#{context.log.title}")
+		section#admin-body.row
+			aside#admin-left-side.content.col-xs-12.col-sm-3.col-md-2.col-lg-2
+				include sidebar
+			article#admin-content.content.col-xs-12.col-sm-12.col-md-10.col-lg-10
+				p.line Bienvenue dans l'interface d'administration de votre application web. Les diff&eacute;rentes rubriques sont accessibles par le menu situ&eacute; &agrave; gauche.
+				p.line Les différentes modalit&eacute;s d'utilisation de l'application sont reprises dans le pied de page.
+

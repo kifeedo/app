@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+	div#login
+		form#login(action="/admin/signin")
+				input(type="hidden",name="target",value="#{target}")
+				input(type="hidden",name="csrf_token" value="#{context.csrf_token}")
+			p.line
+				label(for="user_id") Pseudo :
+				input#user_id(type="text",name="user_id",value="")
+			p.line
+				label(for="password") Mot de passe :
+				input#password(type="password",name="password",value="")
+			p.line
+				input(type="submit",value="Valider")

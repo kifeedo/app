@@ -1,0 +1,22 @@
+header#head-site.head-site
+	section#banner.row
+		div#div-logo.hidden-xs.hidden-sm.col-md-2.col-lg-2
+			span#spanlogo(style=`background-image:url('/images/${params.logo}');`)
+		div#div-societe.col-xs-12.col-sm-12.col-md-10.col-lg-10
+			h1#titre.text-center= params.societe
+	div.row.topmenu
+		div.col-12
+			nav.navbar.navbar-dark.navbar-expand-lg.bg-dark
+				a.navbar-brand(href="#") &nbsp;
+				button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+					span.navbar-toggler-icon
+				div.collapse.navbar-collapse#navbarSupportedContent
+					ul.navbar-nav.mr-auto
+						li.nav-item(active="active")
+							a.nav-link(href="/") Accueil
+						li.nav-item
+							a.nav-link(href="/prestations") Prestations
+						li.nav-item
+							a.nav-link(href="/infos/") Informations pratiques
+						li.nav-item
+							a.nav-link(href="/contact/") Me contacter

@@ -1,0 +1,8 @@
+extends layout
+block content
+	section#principal
+		for presta in prestations
+			div.vignette
+				img.image(src=`images/${presta.illustration}`)
+				p.titre
+					a(href=`/prestation/${presta.id}`)= presta.prestation

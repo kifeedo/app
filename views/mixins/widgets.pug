@@ -1,0 +1,71 @@
+mixin input_model(type,name,label,val,atrbs)
+	p.form-line
+		label(for= name)= label
+		input(type= type,name= name,id= name,value= val)&attributes(atrbs)
+		
+mixin select_line(name,label,values,display_field,val,atrbs)
+	p.form-line
+		label(for=name)= label
+		select(id= name,name= name)&attributes(atrbs)
+			for value in values
+				if val == value['id']
+					option(value= value['id'],selected)= value[display_field]
+				else
+					option(value= value['id'])= value[display_field]
+					
+mixin input_line(name,label,val,atrbs)
+	+input_model("text",name,label,val,atrbs)
+
+mixin input_date(name,label,val,atrbs)
+	+input_model("date",name,label,val,atrbs)
+
+mixin input_time(name,label,val,atrbs)
+	+input_model("time",name,label,val,atrbs)
+
+mixin input_file(name,label,dir,val,atrbs)
+	div.form-line
+		label(for= name)= label
+		if(val && val != null)
+			p.file-line
+				span Actuellement : 
+				span(id= 'span'+name)= val
+				if(name != 'thumbnail')
+					del-file(name= name)
+			p.file-line
+				input(type='file',name= name,id= name)&attributes(atrbs)
+		else
+			p.file-line
+				input(type='file',name= name,id= name)&attributes(atrbs)
+	if val != ""
+		div.form-line
+			input.delfile(type='button',data-field=`${name}`,id=`delfile-${name}`,value="Supprimer Fichier")
+				
+mixin input_pwd(name,label,atrbs)
+	+input_model("password",name,label,"",atrbs)
+	
+mixin text_line(name,label,val,atrbs)
+	p.form-line
+		label(for= name)= label
+		textarea(name= name,id= name)&attributes(atrbs)= val
+
+mixin input_line_valid(name,label,val,objet,atrbs)
+	if(objet.errors && objet.errors.indexOf( name ) > -1)
+		p(class="form-line error")
+			label(for= name)= label
+			input(type="text",name= name,id= name,value= val)&attributes(atrbs)
+	else
+		+input_line(name,label,val,atrbs)
+
+mixin input_pwd_valid(name,label,objet,atrbs)
+	if(objet.errors && objet.errors.indexOf( name ) > -1)
+		p(class="form-line error")
+			label(for= name)= label
+			input(type="password",name= name,id= name)&attributes(atrbs)
+	else
+		+input_pwd(name,label,atrbs)
+		
+mixin check_line(name,label,val,atrbs)
+	p.form-line
+		label(for= name)= label
+		input(type='checkbox',name= name,id= name,ng-model= val,ng-click='check_val($event)')&attributes(atrbs)
+

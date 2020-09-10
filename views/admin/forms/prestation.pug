@@ -1,0 +1,31 @@
+include ../../mixins/widgets
+div#message 
+	!= context.flash
+form#post-form(class="right-form",action=`/admin/prestation/${action}/`,enctype="multipart/form-data",method="POST")
+	input(type="hidden",id="csrf_token",name="csrf_token",value=`${context.csrf_token}`)
+	input(type="hidden",id="created_at",name="created_at",value=Date.now())
+	input(type="hidden",id="id",name="id",value=`${objet.id}`)
+	+input_line_valid('title','Title :',objet.title,"",{})
+	+input_line_valid('description','Description :',objet.description,'',{})
+	+text_line('keywords','Mots clés :',objet.keywords,{})
+	+input_line_valid('prestation','Nom prestation',objet.prestation,{})
+	+select_line('id_categorie','Catégorie :',categories,'categorie',objet.id_categorie,{})
+	+input_file('illustration','Illustration :',"uploads",objet.illustration,{})
+	+text_line('resume','Résumé',objet.resume,{})
+	+text_line('content','Contenu', objet.content,{})
+	input(type='hidden',id='visible',name='visible',value="")
+	script
+		| var content = !{JSON.stringify(objet)};
+		| 
+		| tinymce.init({
+		|	selector:'#content',
+		|	toolbar:'image code|undo redo|styleselect,',
+		|	plugins:'image imagetools code',
+		|	images_upload_url:'/admin/upload/',
+		|	automatic_uploads:false,
+		|	images_upload_credentials:false
+		|	});
+		| 
+		
+	p.form-line
+		input(type="submit",id="submit",name="submit",value="Valider")

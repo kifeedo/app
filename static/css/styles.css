@@ -1,0 +1,80 @@
+/* Font Face */
+@font-face {
+  font-family: Fairy;
+  src: url('./fonts/HennyPenny-Regular.otf');
+}
+/*
+* Variables communes a l'ensemble du site
+*/
+header {
+  background-color: #CDFFE9;
+}
+#spanlogo {
+  margin: 10px 35px;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  background-repeat: no-repeat;
+  background-size: 200px 200px;
+}
+#div-societe h1 {
+  font-family: Fairy;
+  line-height: 200px;
+  height: 200px;
+}
+html {
+  font-size: 16pt;
+}
+body {
+  background-color: #09802a;
+  font-size: 0.8em;
+}
+#wrapper {
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #CDFFE9;
+}
+#principal {
+  max-width: 80%;
+  margin-top: 1.5em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5em;
+  background-color: #aed7cc;
+  padding: 1.5em;
+}
+.vignette {
+  display: inline-block;
+  width: 300px;
+  max-height: 500px;
+  text-align: center;
+}
+.vignette .image {
+  width: 250px;
+  height: 250px;
+  -moz-border-radius: 125px;
+  -webkit-border-radius: 125px;
+  border-radius: 125px;
+  margin-bottom: 1.5em;
+}
+.vignette .titre {
+  text-align: center;
+}
+#illustration {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+#illustration .image {
+  display: block;
+  width: 250px;
+  height: 250px;
+  -moz-border-radius: 125px;
+  -webkit-border-radius: 125px;
+  border-radius: 125px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5em;
+}

@@ -1,0 +1,32 @@
+extends ../layout
+block content
+	div#admin-wrapper()
+		if context.log
+			connect(log="#{context.log.title}")
+		div.row
+			div.center.col-12
+				h1 Rubrique #{schema}
+		div.row
+			aside#admin-left-side.content.col-xs-12.col-sm-3.col-md-2.col-lg-2
+				include sidebar
+			section#admin-body.col-xs-12.col-sm-9.col-md-10.col-lg-10.row
+				
+				article#admin-content.content.liste.col-xs-12.col-sm-12.col-md-6.col-lg-7
+					include liste							
+				article#admin-content-form.content.form.col-xs-12.col-sm-12.col-md-6.col-lg-5
+					input(id="schema",type="hidden",name="schema",value=`${schema}`)
+					if schema == 'author'
+						include forms/author
+					else if schema == 'categorie'
+						include forms/categorie
+					else if schema =='publication'
+						include forms/publication
+					else if schema =='type_post'
+						include forms/type_post
+					else if schema =='parameter'
+						include forms/parameter
+					else if schema == 'prestation'
+						include forms/prestation
+
+
+
