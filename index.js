@@ -8,7 +8,7 @@ const api= require('./admin/api.js')
 const nodemailer = require('nodemailer')
 const bodyParser = require('body-parser')
 const multer = require('multer')
-var upload = multer({dest:'/uploads'})
+var upload = multer({dest:'uploads'})
 // view engine setup
 app.set('env',"dev");
 app.set('views', path.join(__dirname, 'views'));
