@@ -6,7 +6,7 @@ const api = require('./api')
 const bodyParser = require('body-parser')
 const multer = require('multer')
 const commons = require('../commons.js')
-var upload = multer({dest:'/uploads'})
+var upload = multer({dest:'./uploads'})
 const fs=require('fs')
 
 const FIELDS={'categorie':['id','categorie'],
