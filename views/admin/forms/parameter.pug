@@ -15,6 +15,10 @@ form#post-form(class="right-form",action=`/admin/parameter/${action}/`,enctype="
 	+input_model('checkbox','authent','Authentification',objet.authent,{})
 	+select_line('encrypt','Chiffrement',[{id:'None',value:'None'},{id:'SSL',value:'SSL'},{id:'TLS',value:'TLS'}],'value',objet.encrypt,{})
 	+input_line('login_mail','Mail identifiant',objet.login_mail,{})
-	+input_line('mdp_mail','Mail mot de passe',objet.mdp_mail,{})
+	input(type="hidden",name='mdp_mail','password',{})
+	div#password.hide
+		+input_password('mpassword','Mot de passe :',"",{})
+		+input_password('mconfirm','Confirmer Mot de passe :',"",{})
+		input(id="updatepassword",type="button",value="Modifier Mot de passe")
 	p.form-line
 		input(type="submit",id="submit",name="submit",value="Valider")

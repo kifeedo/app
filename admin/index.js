@@ -1,4 +1,6 @@
 const express = require('express')
+const expressSession = require('express-session')
+const cookieParser=require('cookie-parser')
 const app = express()
 const path = require('path')
 const config = require('../config.js')
@@ -6,7 +8,8 @@ const api = require('./api')
 const bodyParser = require('body-parser')
 const multer = require('multer')
 const commons = require('../commons.js')
-var upload = multer({dest:'./uploads'})
+const upload = multer({dest:'./uploads'})
+const users   = require('../users/index.js');
 const fs=require('fs')
 
 const FIELDS={'categorie':['id','categorie'],
@@ -21,7 +24,13 @@ app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname,'/node_modules')))
 app.use(express.static(path.join(__dirname,'/static')))
 app.use(express.static(path.join(__dirname,'/uploads')))
-
+app.use(expressSession({
+	secret:'1234',
+	resave:false,
+	saveUninitialized:true,
+	cookie:{secure:false}
+})
+)
 app.post('/upload/',(req,res)=>{
 	if(req.files){
 	commons.upload(req.files['file'],'images',false)
@@ -30,15 +39,31 @@ app.post('/upload/',(req,res)=>{
 
 })
 app.get('/',(req,res)=>{
-	let params={}
-	api.select('parameter',1).then((resp)=>{
-		params=resp[0];
-		res.render('./admin/index',{
+	users.is_login(req,res,()=>{
+		let params={}
+		api.select('parameter',['id'],[1]).then((resp)=>{
+			params=resp[0];
+			res.render('./admin/index',{
 								params:params,
-								context:{log:"tom"},
+								context:commons.contextCreate(req,'administration'),
 								styles:config.css_common,
   								scripts:config.scripts_common})
-		})
+			})
+	})
+})
+app.post('/chgpwd/',(req,res)=>{
+	users.is_login(req,res,()=>{
+		let password=req.body.password;
+		let confirm=req.body.confirm;
+		if (password != confirm){
+			msg='not match';
+			val='';
+		}else{
+			msg='match';
+			val=commons.create_sha1(password);
+	}
+	res.send({message:msg,value:val});
+	})
 })
 app.get('/:schema/',(req,res)=>{
 	let params={}
@@ -51,7 +76,7 @@ app.get('/:schema/',(req,res)=>{
 	let types_posts=[]
 	//requetes
 	api.select(schema).then(async(result)=>{
-							await api.select('parameter',1).then(res=>{
+							await api.get('parameter',['id'],[1]).then(res=>{
 								params=res[0]
 							})
 							fields=FIELDS[schema]
@@ -79,7 +104,7 @@ app.get('/:schema/',(req,res)=>{
 											tags:tags,
 											styles:config.css_common,
   											scripts:config.scripts_common,
-											context:{log:'tom'}
+											context:commons.contextCreate(req,'administration')
 											})
 
 	})
@@ -94,9 +119,9 @@ app.get('/:schema/:id',(req,res)=>{
 	let tags=[];
 	let types_posts=[];
 	//requetes
-	api.get(schema,id).then(async(result)=>{
+	api.get(schema,['id'],[id]).then(async(result)=>{
 					fields=FIELDS[schema]
-					await api.select('parameter',1).then((res)=>{
+					await api.get('parameter',['id'],[1]).then((res)=>{
 					params=res[0]
 					})
 					await api.select(schema).then((res)=>{
@@ -122,7 +147,7 @@ app.get('/:schema/:id',(req,res)=>{
 									tags:tags,
 									styles:config.css_common,
 									scripts:config.scripts_common,
-									context:{log:'tom'}
+									context:commons.contextCreate(req,'administration')
 
 		});
 
@@ -142,7 +167,7 @@ app.post('/:schema/put/',upload,(req,res)=>{
 	}
 	
 	api.put(schema,req.body).then((response)=>{
-		res.send(response);
+		res.redirect('/admin/'+schema);
 
 	})
 	
@@ -160,8 +185,15 @@ app.post('/:schema/post/',upload,(req,res)=>{
 		}
 	}
 
-	api.post(schema,req.body).then((response)=>{
-		res.send(response);
+	api.post(schema,req.body).then((response,err)=>{
+		if(err){
+			req.sessionStore.flash="enregistrement échoué :"+err.message
+			req.sessionStore.alert="danger"
+		}else{
+			req.sessionStore.flash="Enregistrement réussi";
+			req.sessionStore.alert="success";
+		}
+		res.redirect('/admin/'+schema);
 	})
 
 })
@@ -176,7 +208,6 @@ app.post('/delfile',upload,(req,res)=>{
 		params[field]="";
 		api.post(schema,params).then((result)=>{
 			/* Traitement du fichier */
-			console.log()
 				try{
 					fs.unlinkSync(rep+file);
 					/*fs.unlinkSync(rep+'/thumbnails/'+doc[req.body.field].slice(0,-4)+'.png');*/

@@ -32,7 +32,7 @@ api={
 		return fields
 	},
 	
-	get:(schema,id)=>{
+	get:(schema,keys,values)=>{
 		return new Promise((success,error)=>{
 								let db = new sqlite3.Database('./admin/kifeedo.db',(err)=>{
 								if(err){
@@ -41,11 +41,13 @@ api={
 								}
 								console.log('connexion a la base de donnees')
 								})
+		console.log(keys);
+		console.log(values);
+		let query="SELECT * FROM "+schema+"s WHERE "+keys.join("=? AND ")+"=?";
 
-		let query="SELECT * FROM "+schema+"s WHERE id=?";
-		db.all(query,[id],(err,response)=>{
+		db.all(query,values,(err,response)=>{
 			if(err){
-				throw err;
+				error(err.message);
 			}
 			success(response);
 			})

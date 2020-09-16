@@ -1,10 +1,14 @@
 const express = require('express')
+const expressSession = require('express-session')
+const cookieParser=require('cookie-parser')
 const app = express()
 const port = 3000
 const path = require('path')
 const config = require('./config.js')
 const admin= require('./admin/index.js')
 const api= require('./admin/api.js')
+const users=require('./users/index.js')
+const commons=require('./commons.js')
 const nodemailer = require('nodemailer')
 const bodyParser = require('body-parser')
 const multer = require('multer')
@@ -15,6 +19,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 //app.set('view option',{layout:false})
+app.use(cookieParser())
+app.use(expressSession({
+	secret:'1234',
+	resave:false,
+	saveUninitialized:true,
+	cookie:{secure:false}
+	})
+)
 app.use(express.static(config.node_modules))
 app.use(express.static(path.join(__dirname,'/static')))
 app.use(express.static(path.join(__dirname,'/uploads')))
@@ -26,9 +38,9 @@ app.use('/admin',admin)
 app.get('/', (req, res) => {
   //res.send('Hello World!')
   let parameters={}
-  api.get('parameter',1).then((res1)=>{
+  api.get('parameter',['id'],[1]).then((res1)=>{
   	parameters=res1[0]
-  	api.get('publication',1).then((res2)=>{
+  	api.get('publication',['id'],[1]).then((res2)=>{
   				res.render('index',{
   				title:res2[0]['title'],
   				description:res2[0]['description'],
@@ -37,18 +49,40 @@ app.get('/', (req, res) => {
   				content:res2[0],
   				styles:config.css_common,
   				scripts:config.scripts_common,
-  				message:"hello everybody",
+  				context:commons.contextCreate(req,'kifeedo')
   				})
   		})
 	})
 })
+app.get('/login/',function(req,res){
+    if(!req.sessionStore.log){
+        res.render('login',{title:'kifeedo|Login required',
+                                target_url:req.sessionStore.target_url,
+                                msg:req.sessionStore.flash,
+                                espace:'admin',
+  								description:'page de login',
+  								keywords:'kifeedo,login,admin',
+  								styles:config.css_common,
+  								scripts:config.scripts_common,
+                                context:commons.contextCreate(req,'admin')
+                                });
+    }else{
+        res.redirect('/');
+    }
+});
+app.post('/signin/',function(req,res){
+    users.authentificate(req,res);
+});
+app.get('/logout/',function(req,res){
+    users.log_out(req,res);
+});
 app.get('/prestations/',(req,res)=>{
 	let parameters={}
 	let publication={}
 	let prestations=[]
-	api.get('parameter',1).then((res1)=>{
+	api.get('parameter',['id'],[1]).then((res1)=>{
   		parameters=res1[0]
-  		api.get('publication',2).then((res2)=>{
+  		api.get('publication',['id'],[2]).then((res2)=>{
   				publication=res2[0]
   		})
   		api.select('prestation').then((res3)=>{
@@ -59,8 +93,8 @@ app.get('/prestations/',(req,res)=>{
   				keywords:publication['keywords'],
   				params:parameters,
   				prestations:prestations,
-  				styles:config.css_common,
-  				scripts:config.scripts_common
+  				context:commons.contextCreate(req,"prestations"),
+  				
   				})
   		})
   })
@@ -70,8 +104,8 @@ app.get('/prestation/:id/',(req,res)=>{
 	let parameters={}
 	let prestation={}
 	let id=req.params.id
-	api.get('prestation',id).then((res1)=>{
-		api.get('parameter',1).then((res2)=>{
+	api.get('prestation',['id'],[id]).then((res1)=>{
+		api.get('parameter',['id'],[1]).then((res2)=>{
 			parameters=res2[0];
 			prestation=res1[0];
 			res.render('details_prestation',{
@@ -80,8 +114,7 @@ app.get('/prestation/:id/',(req,res)=>{
 				keywords:prestation.keywords,
 				params:parameters,
 				prestation:prestation,
-				styles:config.css_common,
-				scripts:config.scripts_common
+				context:commons.contextCreate(req,'prestation_details')
 				})
 			})
 		})
@@ -90,7 +123,7 @@ app.get('/infos/',(req,res)=>{
 	let parameters={}
 	let infos={}
 	api.get('publication',3).then((res1)=>{
-		api.get('parameter',1).then((res2)=>{
+		api.get('parameter',['id'],[1]).then((res2)=>{
 			parameters=res2[0]
 			infos=res1[0]
 			res.render('index',{
@@ -99,8 +132,7 @@ app.get('/infos/',(req,res)=>{
 				keywords:infos.keywords,
 				params:parameters,
 				content:infos,
-				styles:config.css_common,
-				scripts:config.scripts_common
+				context:commons.contextCreate(req,'prestation_details')
 			})
 		})
 
@@ -108,7 +140,7 @@ app.get('/infos/',(req,res)=>{
 })
 app.get('/contact/',(req,res)=>{
 	let parameters={}
-	api.get('parameter',1).then((res1)=>{
+	api.get('parameter',['id'],[1]).then((res1)=>{
 		parameters=res1[0]
 		res.render('contact',{
 			title:'kifeedo|contact',
@@ -116,8 +148,7 @@ app.get('/contact/',(req,res)=>{
 			keywords:'kifeedo,contact',
 			contact:{lastname:'',firstname:'',subject:'',email:'',content:''},
 			params:parameters,
-			styles:config.css_common,
-			scripts:config.scripts_common
+			context:commons.contextCreate(req,'contact')
 		})
 	})
 })
@@ -125,8 +156,7 @@ app.get('/contact/',(req,res)=>{
 app.post('/send/',upload,(req,res)=>{
 	let parameters={}
 	let contact=req.body
-	console.log(contact)
-	api.get('parameter',1).then((res1)=>{
+	api.get('parameter',['id'],[1]).then((res1)=>{
 		parameters=res1[0]
 		let transp=nodemailer.createTransport({
 								host:parameters.smtp,
@@ -148,12 +178,16 @@ app.post('/send/',upload,(req,res)=>{
 		transp.sendMail(mailOptions, function(error, info){
   				if (error) {
     				message='envoi mail interrompu '+error.message;
+    				req.sessionStore.flash=message;
+    				res.redirect('/contact/')
   				} else {
-    				message='mail envoyé: ' + info.response;
+    				message='mail envoyé: ' + info.response+' Merci de votre intérêt';
+    				req.sessionStore.flash=message;
+    				res.redirect('/')
   				}
-  				console.log(message)
+  				
   		})
-  		res.redirect('/contact/')
+  		
 		
 	})
 })

@@ -1,30 +1,31 @@
-table
-	tr
-		form#form-lot-actions(action=`/admin/${schema}/confirm/` method=POST)
-			div#actions-lot
-				p
-					label(for="select-lot-actions") Actions par lot :&nbsp;
-					select#action-lot-select(name="select-lot-actions")
-						option(value="null") ----
-						option(value="delete") Supprimer
-					input(type="hidden",name="ids",value="{{ids}}")
-					input#submit-action(type="submit",name="submit-lot-actions",value="Soumettre")
-		form#form-search(action="javascript:void(0);",method='GET')
-			div#actions-search
-				p
-					label(for="search") Filtre :&nbsp;
-					input#search(type="text",ng-model="search",placeholder="Rechercher")
-		p#nb-elt-sel
+table.table.table-bordered.table-striped
+	thead.thead-light
+		tr.hidden-sm.hidden-xs.hidden-md.hidden-lg
+			form#form-lot-actions(action=`/admin/${schema}/confirm/` method=POST)
+				div#actions-lot
+					p
+						label(for="select-lot-actions") Actions par lot :&nbsp;
+						select#action-lot-select(name="select-lot-actions")
+							option(value="null") ----
+							option(value="delete") Supprimer
+						input(type="hidden",name="ids",value="{{ids}}")
+						input#submit-action(type="submit",name="submit-lot-actions",value="Soumettre")
+			form#form-search(action="javascript:void(0);",method='GET')
+				div#actions-search
+					p
+						label(for="search") Filtre :&nbsp;
+						input#search(type="text",ng-model="search",placeholder="Rechercher")
+			p#nb-elt-sel
+				
+		tr.table-admin-head
 			
-	tr.table-admin-head
-		
-		td.add
-			input(type="button",id="addform",value="Ajouter",onclick=`add($event,${schema})`)
-	tr.table-admin-head
-		each field in fields
-			th(id=`th-${field}`)= field
+			td.add
+				input(type="button",id="addform",value="Ajouter",onclick=`add($event,${schema})`)
+		tr.table-admin-head
+			each field in fields
+				th(id=`th-${field}`)= field
 
-		th#actions(colspan="2") actions
+			th#actions(colspan="2") actions
 
 	each elt in liste
 		tr.ligne

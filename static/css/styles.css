@@ -10,7 +10,7 @@ header {
   background-color: #CDFFE9;
 }
 #spanlogo {
-  margin: 10px 35px;
+  text-align: center;
   display: inline-block;
   width: 200px;
   height: 200px;
@@ -77,4 +77,10 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1.5em;
+}
+.hide {
+  display: None;
+}
+.show {
+  display: block;
 }

@@ -4,7 +4,7 @@
   "description": "site internet de la fee",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node_modules/less/bin/lessc static/css/styles.less static/css/styles.css && node index.js",
     "test": "test"
   },
   "author": "",
@@ -15,7 +15,6 @@
     "cookie-parser": "^1.4.5",
     "errorhandler": "^1.1.1",
     "express": "^4.17.1",
-    "express-session": "^1.7.2",
     "jquery": "^3.5.1",
     "method-override": "^2.1.2",
     "morgan": "^1.2.2",
@@ -25,6 +24,8 @@
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
+    "crypto": "^1.0.1",
+    "express-session": "^1.17.1",
     "fs": "0.0.1-security",
     "less": "^3.12.2",
     "nodemailer": "^6.4.11",

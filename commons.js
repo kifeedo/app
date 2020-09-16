@@ -5,8 +5,8 @@ var fs     = require('fs');
 var path   = require('path');
 var config=require('./config.js');
 var env = config.environment;
-/*var crypto = require('crypto');	
-var imagemagick=require('imagemagick');
+var crypto = require('crypto');	
+/*var imagemagick=require('imagemagick');
 var async=require('async');*/
 /* *************************************
  * ****** FONCTIONS PRIVEES  ***********
@@ -69,37 +69,12 @@ module.exports = {
 			return new Date();
 		}
 	},
-	createStaticPath : function(dir,ext){
-		if(dir != 'angular/mod-enabled' && ext == 'js'){
-			var files=Array('filters.js','services.js','controllers.js','directives.js');
-		}else{
-			var files=Array();
-		}
-		var directory=[ext];
-		if( dir != ''){	
-			directory.push(dir);
-		}
-		var list=fs.readdirSync('public/'+directory.join('/'));
-		for(var i=0; i<list.length;i++){
-			if(list[i].match('^.*\.'+ext+'$') && files.indexOf(list[i])== -1 ){
-				files.push(list[i]);
-			}
-		}
-		if(files.length > 0){
-			return files.map(function(file){return directory.join('/')+'/'+file;});
-		}else{
-			return files;
-		}
-	},
 	contextCreate  : function(req,application){
 		var sha1=crypto.createHash('sha1');
 		var sha2=crypto.createHash('sha1');
 		var seed = crypto.randomBytes(20);
 		var csrf = sha1.update(seed).digest('hex');
 		req.sessionStore.csrf_value=sha2.update(req.hostname+req.headers['user-agent']+csrf+config.SALT).digest('hex');
-		var scripts_angular = this.createStaticPath('angular/mod-enabled','js');
-		var scripts_common_angular=config.angular_commons.map(function(x){return "js/"+x;});
-		var scripts_application = this.createStaticPath(application,'js');
 		var flash=req.sessionStore.flash;
 		req.sessionStore.flash="";
 		(req.sessionStore.log)?log=req.sessionStore.log:log=null;
@@ -111,13 +86,12 @@ module.exports = {
 		/*! --- recupere des donnees de log eventuelles ---*/
 		log : log,
 		/*! --- recupere le token csrf --*/
-		/*! --- recupere le jeton google api ---*/
-		google_api_key:config.GOOGLE_API_KEY,
 		csrf_token : csrf,
-		/*! --- cree les stylesheets --*/
-		stylesheets : this.createStaticPath(application,'css'),
-		/*! --- cree les scripts     --*/
-		scripts: scripts_angular.concat(scripts_common_angular).concat(scripts_application)
+
+		styles:config.css_common,
+
+  		scripts:config.scripts_common
+  		
 		}
 		
 	},

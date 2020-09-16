@@ -1,0 +1,39 @@
+doctype html
+html
+	head
+		title erreur 404, page non trouv&eacute;e
+		meta(http-equiv="content-type",content="text/html; charset=utf-8")
+		link(rel="stylesheet",type="text/css",href="/static/css/bootstrap/bootstrap.css")
+		link(rel="stylesheet",type="text/css",href="/static/css/style.css")
+		| <!--[if lt IE 9]>
+		|	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+		| <![endif]-->
+	body
+		div#wrapper
+			include header
+			section#row1-body.row
+				h2.titre-rubrique Ressource introuvable
+				div#error-block
+					div#text-404.row
+						h2 La requ&ecirc;te demand&eacute;e n'a pas abouti.
+						p Les principales causes peuvent provenir :
+						ul
+							li soit d'une url inexistante
+							li d'une ressource non trouvée
+							li soit d'un probl&egrave;me de connexion
+						p Merci de r&eacute;essayer, en cas de probl&egrave;mes r&eacute;ccurents, n'h&eacute;sitez pas à nous contacter via <a href="/contact/">le formulaire de contact.</a>
+					div#colons.row
+						div#left-content.xs-hidden.sm-hidden.col-md-5.col-lg-5
+							img(src="/static/img/404.png",alt="image_erreur_404")
+						div#right-content.col-xs-12.col-sm-12.col-md-6.col-lg-6
+							ul
+								li.button
+									a.a-button(href="/") Accueil
+								li.button
+									a.a-button(href="/actualites/") Agenda
+								li.button
+									a.a-button(href="/galeries/") Galeries photos
+								li.button
+									a.a-button(href="/contact/") Formulaire de contact
+				include footer
+
