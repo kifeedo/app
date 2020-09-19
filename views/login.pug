@@ -1,5 +1,7 @@
-div#login
-	form#login(action="/signin/" method="POST")
+extends layout
+block content
+	div#login
+		form#login(action="/signin/" method="POST")
 			input(type="hidden",name="target_url",value=`${target_url}`)
 			input(type="hidden",name="csrf_token", value=`${context.csrf_token}`)
 			p.line

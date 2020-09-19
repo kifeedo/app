@@ -2,7 +2,7 @@ include ../../mixins/widgets
 div#message 
 	!= context.flash
 form#categorie-form(class="right-form",action=`/admin/categorie/${action}/`,enctype="multipart/form-data",method="POST")
-	input(type="hidden",id="csrf_token",name="csrf_token",value='#{context.csrf_token}')
+	input(type="hidden",id="csrf_token",name="csrf_token",value=`${context.csrf_token}`)
 	input(type="hidden",id="id",name="id",value=`${objet.id}`)
 	+input_line_valid('categorie','Catégorie :',objet.categorie, '',{})
 	script

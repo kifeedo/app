@@ -1,12 +1,13 @@
 header#head-site.head-site
 	section#banner.row
-		div#div-logo.hidden-xs.hidden-sm.hidden-md.col-lg-3.text-center
+		div#div-logo.hidden-xs.hidden-sm.hidden-md.col-lg-2.text-center
 			span#spanlogo(style=`background-image:url('/images/${params.logo}');`)
-		div#div-societe.col-xs-12.col-sm-12.col-md-12.col-lg-9
+		div#div-societe.col-xs-12.col-sm-12.col-md-12.col-lg-8
 			h1#titre.text-center= params.societe
+		div.hidden-xs.hidden-sm.hidden-md.col-lg-2
 
 	div.row.topmenu
-		div.col-10
+		div.col-12
 			nav.navbar.navbar-dark.navbar-expand-lg.bg-dark
 				a.navbar-brand(href="#") &nbsp;
 				button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
@@ -21,15 +22,15 @@ header#head-site.head-site
 							a.nav-link(href="/infos/") Informations pratiques
 						li.nav-item
 							a.nav-link(href="/contact/") Me contacter
-		div.col-2
+				div.collapse.navbar-collapse.text-right(style="max-width:200px")
 			
-				if context.log != null
-					p
-						span Vous êtes connecté en tant que #{context.log.login}
-					p
-						span 
-							a(href="/logout/") Se deconnecter
-				else
-					p
-						span 
-							a(href="/login/") Se connecter
+					if context.log != null
+						p.navbar-text
+							span #{context.log.login}
+						p.navbar-text
+							span
+								a(href="/logout/") &nbsp;Se deconnecter
+					else
+						p.navbar-text
+							span.white
+								a(href="/admin") &nbsp;Se connecter

@@ -56,8 +56,11 @@ app.get('/', (req, res) => {
 })
 app.get('/login/',function(req,res){
     if(!req.sessionStore.log){
-        res.render('login',{title:'kifeedo|Login required',
+    	let params={}
+    	api.get('parameter',['id'],[1]).then((res2)=>{
+        	res.render('login',{title:'kifeedo|Login required',
                                 target_url:req.sessionStore.target_url,
+                                params:res2[0],
                                 msg:req.sessionStore.flash,
                                 espace:'admin',
   								description:'page de login',
@@ -66,6 +69,7 @@ app.get('/login/',function(req,res){
   								scripts:config.scripts_common,
                                 context:commons.contextCreate(req,'admin')
                                 });
+        })
     }else{
         res.redirect('/');
     }
@@ -122,7 +126,7 @@ app.get('/prestation/:id/',(req,res)=>{
 app.get('/infos/',(req,res)=>{
 	let parameters={}
 	let infos={}
-	api.get('publication',3).then((res1)=>{
+	api.get('publication',['id'],[3]).then((res1)=>{
 		api.get('parameter',['id'],[1]).then((res2)=>{
 			parameters=res2[0]
 			infos=res1[0]
@@ -169,11 +173,16 @@ app.post('/send/',upload,(req,res)=>{
 								},
 								
 							})
+		let date=new Date().toString();
+		let content=`${contact.firstname} ${contact.lastname} \n ${contact.email} Vous a envoyé le message suivant à \
+						${date} : \n \
+						${contact.content}`;
 		let mailOptions={
 			from:contact.email,
+			replyTo:contact.email,
 			to:'kifeedo@gmail.com',
 			subject:contact.subject,
-			html:contact.content
+			html:content
 		}
 		transp.sendMail(mailOptions, function(error, info){
   				if (error) {

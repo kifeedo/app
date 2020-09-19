@@ -14,7 +14,7 @@ form#author-form(class="right-form",action=`/admin/author/${action}/`,enctype="m
 		button(id="chgpwd",type="button") Changer
 	div#div-password-message.alert
 	div#div-password-change.hide
-		+input_pwd('mpassword','Mot de passe :',"",{})
+		+input_pwd('mpassword','Mot de passe :',objet.password,{})
 		+input_pwd('mconfirm','Confirmer Mot de passe :',"",{})
 		button(id="spwd",type="button") Modifier Mot de passe
 	script

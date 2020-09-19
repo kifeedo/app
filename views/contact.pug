@@ -1,15 +1,16 @@
 extends layout.pug
 include mixins/widgets.pug
 block content
-	div#wrapper()
+	div#principal
 		
 		section#row1-titre.row.text-center
-			h2.titre-rubrique.text-center Nous contacter
+			div.col-12
+				h2.titre-rubrique.text-center Me contacter
 		section#row2-content.row
-			div#contact
-				
-				div#texte
-					p.message-titre Vous pouvez me contacter par courrier électronique en remplissant le formulaire ci dessous, n'oubliez pas de regarder votre répertoire de courriers indésirables si vous trouvez que je mets du temps à répondre :
+				div.col-4
+				div.col-4
+					div#texte
+						p.message-titre Vous pouvez me contacter par courrier électronique en remplissant le formulaire ci dessous, n'oubliez pas de regarder votre répertoire de courriers indésirables si vous trouvez que je mets du temps à répondre :
 					div#message
 						
 					form#contact-form(action="/send/",enctype="multipart/form-data",method="POST")
@@ -19,6 +20,7 @@ block content
 						+input_line_valid('email','Email * :',contact.email,contact,{})
 						+input_line('subject','Sujet * :',contact.subject,{})
 						+text_line('content','Message * :',contact.content,{})
-						p#submit-line.form-line
+						p#submit-line.form-line.text-right
 							input(type="submit",id="submit",name="submit",value="Valider")
+					div.col-4
 	

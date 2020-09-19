@@ -4,16 +4,16 @@ block content
 		if context.flash
 			div.alert(class="alert-`${context.alert}`")= context.flash
 		div.row
-			div.center.col-12
+			div.text-center.col-12
 				h1 Rubrique #{schema}
 		div.row
 			aside#admin-left-side.content.col-xs-12.col-sm-3.col-md-2.col-lg-2
 				include sidebar
 			section#admin-body.col-xs-12.col-sm-9.col-md-10.col-lg-10.row
 				
-				article#admin-content.content.liste.col-xs-12.col-sm-12.col-md-6.col-lg-7
+				article#admin-content.content.liste.col-xs-12.col-sm-12.col-md-7.col-lg-8
 					include liste							
-				article#admin-content-form.content.form.col-xs-12.col-sm-12.col-md-6.col-lg-5
+				article#admin-content-form.content.form.col-xs-12.col-sm-12.col-md-5.col-lg-4
 					input(id="schema",type="hidden",name="schema",value=`${schema}`)
 					if schema == 'author'
 						include forms/author

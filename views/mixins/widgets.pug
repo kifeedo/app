@@ -40,8 +40,8 @@ mixin input_file(name,label,dir,val,atrbs)
 		div.form-line
 			input.delfile(type='button',data-field=`${name}`,id=`delfile-${name}`,value="Supprimer Fichier")
 				
-mixin input_pwd(name,label,atrbs)
-	+input_model("password",name,label,"",atrbs)
+mixin input_pwd(name,label,value,atrbs)
+	+input_model("password",name,label,value,atrbs)
 	
 mixin text_line(name,label,val,atrbs)
 	p.form-line
