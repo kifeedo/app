@@ -19,8 +19,8 @@ form#post-form(class="right-form",action=`/admin/prestation/${action}/`,enctype=
 		| 
 		| tinymce.init({
 		|	selector:'#content',
-		|	toolbar:'image code|undo redo|styleselect,',
-		|	plugins:'image imagetools code',
+		|	toolbar:'image code|undo redo|styleselect | bullist | numlist | fullscreen',
+		|	plugins:'image imagetools code advlist lists table fullscreen',
 		|	images_upload_url:'/admin/upload/',
 		|	automatic_uploads:false,
 		|	images_upload_credentials:false
