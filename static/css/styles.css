@@ -6,8 +6,19 @@
 /*
 * Variables communes a l'ensemble du site
 */
+/*@color-header:#CDFFE9;
+@color-menu:#043427;
+@color-footer:##CDFFE9;
+@color-bg1:#09802a;
+@color-bg2:#CDFFE9;
+@color-bg-content:#aed7cc;
+
+@color-font-title:;
+@color-font-text:;
+@color-link:;
+@color-link-hover:;*/
 header {
-  background-color: #CDFFE9;
+  background-color: #fff;
 }
 .navbar-white {
   color: #fff;
@@ -30,14 +41,14 @@ html {
   font-size: 16pt;
 }
 body {
-  background-color: #09802a;
+  background-color: #fff;
   font-size: 0.8em;
 }
 #wrapper {
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
-  background-color: #CDFFE9;
+  background-color: #fff;
 }
 #principal {
   max-width: 80%;
@@ -45,8 +56,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1.5em;
-  background-color: #aed7cc;
-  padding: 1.5em;
+  background-color: #fcfbf4;
+  padding: 1em;
 }
 .vignette {
   display: inline-block;
@@ -55,8 +66,8 @@ body {
   text-align: center;
 }
 .vignette .image {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   -moz-border-radius: 125px;
   -webkit-border-radius: 125px;
   border-radius: 125px;

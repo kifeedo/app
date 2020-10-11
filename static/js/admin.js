@@ -37,6 +37,10 @@ $(function(){
 				}
 			})
 	})
-
+	$("#check").on('click',(event)=>{
+		let ids=$("idslot").val()
+		if(event.target.val())
+	})
+	
 
 });

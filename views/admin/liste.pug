@@ -8,7 +8,7 @@ table.table.table-bordered.table-striped
 						select#action-lot-select(name="select-lot-actions")
 							option(value="null") ----
 							option(value="delete") Supprimer
-						input(type="hidden",name="ids",value="{{ids}}")
+						input#lot-ids(type="hidden",name="ids",value="")
 						input#submit-action(type="submit",name="submit-lot-actions",value="Soumettre")
 			form#form-search(action="javascript:void(0);",method='GET')
 				div#actions-search
@@ -20,8 +20,10 @@ table.table.table-bordered.table-striped
 		tr.table-admin-head
 			
 			td.add
-				input(type="button",id="addform",value="Ajouter",onclick=`add($event,${schema})`)
+				form#formadd(action=`/admin/${schema}/` method=GET)
+					input(type='submit',id="addform",value="Ajouter")
 		tr.table-admin-head
+			th.checkselect
 			each field in fields
 				th(id=`th-${field}`)= field
 
@@ -29,6 +31,8 @@ table.table.table-bordered.table-striped
 
 	each elt in liste
 		tr.ligne
+			td.check.text-center
+				input(type="checkbox",id="check-`${elt['id']}")
 			each field in fields
 				td(id=`td-${field}-${elt['id']}`,class=`td-${field}`) #{elt[field]}
 			td.edit
