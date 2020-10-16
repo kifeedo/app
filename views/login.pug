@@ -1,14 +1,18 @@
 extends layout
 block content
-	div#login
-		form#login(action="/signin/" method="POST")
-			input(type="hidden",name="target_url",value=`${target_url}`)
-			input(type="hidden",name="csrf_token", value=`${context.csrf_token}`)
-			p.line
-				label(for="login") Pseudo :
-				input#user_id(type="text",name="login",value="")
-			p.line
-				label(for="password") Mot de passe :
-				input#password(type="password",name="password",value="")
-			p.line
-				input(type="submit",value="Valider")
+	
+	div#wrap-login.row
+		div#login.col-4
+				form#login(action="/signin/" method="POST")
+					input(type="hidden",name="target_url",value=`${target_url}`)
+					input(type="hidden",name="csrf_token", value=`${context.csrf_token}`)
+					p.line
+						label(for="login") Pseudo :
+						input#user_id(type="text",name="login",value="")
+					p.line
+						label(for="password") Mot de passe :
+						input#password(type="password",name="password",value="")
+					p.line#button-login
+						input(type="submit",value="Valider")
+	div.row
+		div.col-4
