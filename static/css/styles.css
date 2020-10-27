@@ -9,7 +9,7 @@
 /*@color-header:#CDFFE9;
 @color-menu:#043427;
 @color-footer:##CDFFE9;
-@color-bg1:#09802a;
+@color-bg1:#32AC93;
 @color-bg2:#CDFFE9;
 @color-bg-content:#aed7cc;
 
@@ -32,6 +32,11 @@ header {
   background-repeat: no-repeat;
   background-size: 200px 200px;
 }
+#banner {
+  background-image: url('/img/paon.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 #div-societe h1 {
   font-family: Fairy;
   line-height: 200px;
@@ -41,7 +46,7 @@ html {
   font-size: 16pt;
 }
 body {
-  background-color: #fff;
+  background-color: #49BEA1;
   font-size: 0.8em;
 }
 #wrapper {
@@ -85,9 +90,9 @@ body {
 .vignette .image {
   width: 200px;
   height: 200px;
-  -moz-border-radius: 125px;
-  -webkit-border-radius: 125px;
-  border-radius: 125px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
   margin-bottom: 1.5em;
 }
 .vignette .titre {
@@ -100,11 +105,11 @@ body {
 }
 #illustration .image {
   display: block;
-  width: 250px;
-  height: 250px;
-  -moz-border-radius: 125px;
-  -webkit-border-radius: 125px;
-  border-radius: 125px;
+  width: 300px;
+  height: 300px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1.5em;
