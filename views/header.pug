@@ -1,10 +1,6 @@
 header#head-site.head-site
-	section#banner.row
-		div#div-logo.col-12.col-xl-2.col-sm-12.col-md-12.col-lg-2.text-center
-			span#spanlogo(style=`background-image:url('/images/${params.logo}');`)
-		div#div-societe.d-none.d-sm-none.d-md-none.d-lg-block.d-xl-block.col-lg-8.col-xl-8
-			h1#titre.text-center= params.societe
-		div.d-sm-none.d-md-none.col-lg-2.col-xl-2.text-center 
+	div#empty.text-center
+		
 
 	div.row.topmenu
 		div.col-12
@@ -34,3 +30,12 @@ header#head-site.head-site
 						p.navbar-text
 							span.white
 								a(href="/admin") &nbsp;Se connecter
+	div#section-title.row.d-sm-block.d-md-block.d-lg-none.d-xl-none
+		div.col-12.align-middle.text-center
+			span#spanlogo(style=`background-image:url('/images/${params.logo}');`)
+	div#section-title.row.d-none.d-lg-block.d-xl-block
+		div.col-12.text-center
+			span#spanlogo.align-middle(style=`background-image:url('/images/${params.logo}');`)
+			h1#titre.align-middle= params.societe
+
+		

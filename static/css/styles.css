@@ -3,12 +3,20 @@
   font-family: Fairy;
   src: url('./fonts/HennyPenny-Regular.otf');
 }
+@font-face {
+  font-family: Chapaza;
+  src: url('./fonts/Chapaza.ttf');
+}
+@font-face {
+  font-family: ChapazaItalic;
+  src: url('./fonts/Chapaza Italic.ttf');
+}
 /*
 * Variables communes a l'ensemble du site
 */
 /*@color-header:#CDFFE9;
 @color-menu:#043427;
-@color-footer:##CDFFE9;
+@color-footer:#CDFFE9;
 @color-bg1:#32AC93;
 @color-bg2:#CDFFE9;
 @color-bg-content:#aed7cc;
@@ -23,37 +31,46 @@ header {
 .navbar-white {
   color: #fff;
 }
-#spanlogo {
-  text-align: center;
-  display: inline-block;
-  width: 200px;
+#empty {
   height: 200px;
-  line-height: 200px;
-  background-repeat: no-repeat;
-  background-size: 200px 200px;
-}
-#banner {
+  width: 100%;
   background-image: url('/img/paon.png');
+  background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  opacity: 0.7;
 }
-#div-societe h1 {
+#spanlogo {
+  margin: 0.5em 0 0 0;
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  background-repeat: no-repeat;
+  background-size: 150px 150px;
+}
+h1 {
+  margin: 0.5em 0 0 1em;
+  display: inline-block;
   font-family: Fairy;
-  line-height: 200px;
-  height: 200px;
+  line-height: 150px;
+  height: 150px;
 }
 html {
   font-size: 16pt;
+  font-family: Chapaza;
 }
 body {
-  background-color: #49BEA1;
-  font-size: 0.8em;
+  font-family: Chapaza;
+  background-color: #49bea1;
+  font-size: 0.9em;
 }
 #wrapper {
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
+  text-align: justify;
 }
 #principal {
   max-width: 80%;
@@ -61,7 +78,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1.5em;
-  background-color: #fcfbf4;
+  background-color: #fff;
   padding: 1em;
 }
 #wrap-login {
@@ -83,13 +100,18 @@ body {
 }
 .vignette {
   display: inline-block;
+  padding: 0.5em;
   width: 300px;
   max-height: 500px;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 .vignette .image {
-  width: 200px;
-  height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  height: 250px;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;

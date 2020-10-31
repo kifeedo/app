@@ -1,7 +1,9 @@
 extends layout
 block content
 	section#principal
-		h1#titre.text-center= prestation.prestation
+		div.row
+			div.col-12.text-center
+				h1#titre= prestation.prestation
 		div#illustration
 			img.image.text-center(src=`/images/${prestation.illustration}`)
 		br
