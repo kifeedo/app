@@ -11,6 +11,7 @@ form#post-form(class="right-form",action=`/admin/publication/${action}/`,enctype
 	+text_line('keywords','Mots clés :',objet.keywords,{})
 	+text_line('titre','Titre : ',objet.titre,{})
 	+select_line('id_categorie','Catégorie :',categories,'categorie',objet.id_categorie,{})
+	+select_line('id_tags','Tags :', tags,'tag',objet.tags,{'multiple':'multiple'})
 	+text_line('resume','Résumé',objet.resume,{})
 	+text_line('content','Contenu', objet.content,{})
 	input(type='hidden',id='visible',name='visible',value="")

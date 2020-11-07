@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3').verbose()
 const fs=require('fs')
 
+const many_to_many_fields=['id_tag']
 api={
 
 	select:(schema)=>{
@@ -27,24 +28,26 @@ api={
 	pkeys:(objet)=>{
 		let fields=[]
 		for(f in objet){
-			fields.push(f)
+			if(many_to_many_fields.indexOf(f)!==-1 ){
+				fields.push(f)
+			}
 		}
 		return fields
 	},
 	
-	get:(schema,keys,values)=>{
+	get:(schema,keys,values,operator="AND")=>{
 		return new Promise((success,error)=>{
 								let db = new sqlite3.Database('./admin/kifeedo.db',(err)=>{
 								if(err){
 									error(err)
 									return console.error(err.message);
 								}
-								console.log('connexion a la base de donnees')
+								/*console.log('connexion a la base de donnees')*/
 								})
-		console.log(keys);
-		console.log(values);
-		let query="SELECT * FROM "+schema+"s WHERE "+keys.join("=? AND ")+"=?";
-
+		/*console.log(keys);
+		console.log(values);*/
+		let query="SELECT * FROM "+schema+"s WHERE "+keys.join("=? "+operator+" ")+"=?";
+		/*console.log(query)*/
 		db.all(query,values,(err,response)=>{
 			if(err){
 				error(err.message);
@@ -61,7 +64,7 @@ api={
 									error(err)
 									return console.error(err.message);
 								}
-								console.log('connexion a la base de donnees')
+								/*console.log('connexion a la base de donnees')*/
 								})
 			let query="PRAGMA table_info('"+schema+"s')";
 			db.all(query,(err,res)=>{
@@ -87,7 +90,7 @@ api={
 									error(err)
 									return console.error(err.message);
 								}
-								console.log('connexion a la base de donnees')
+								/*console.log('connexion a la base de donnees')*/
 								})
 		return new Promise((success,error)=>{
 					api.model(schema).then(model=>{
@@ -124,27 +127,25 @@ api={
 									error(err)
 									return console.error(err.message);
 								}
-								console.log('connexion a la base de donnees')
+								/*console.log('connexion a la base de donnees')*/
 								})
 		return new Promise((success,error)=>{
 					api.model(schema).then(model=>{
-					console.log(Object.keys(objet))
 					for(field in model){
-						console.log(Object.keys(objet).indexOf(field))
 						if(Object.keys(objet).indexOf(field)===-1){
 							delete model[field];
-						}else{
-							model[field] = objet[field];
-							
+						}else if(many_to_many_fields.indexOf(field) !== -1){
+							model_mtm[field]=objet[field];
+						}
+						else{
+							model[field] = objet[field];	
 						}
 						
 					}
-					console.log(model)
 					let query_keys=Object.keys(model);
 					let query_values=Object.values(model);
 					let s_query=query_keys.map( x => x +" = ?" ).join(",");
 					let query=`UPDATE ${schema}s SET ${s_query} WHERE id=${objet.id}`;
-					console.log(query)
 					db.run(query,query_values,(err,res)=>{
 						if(err){
 							throw err;

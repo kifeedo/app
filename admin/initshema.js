@@ -69,18 +69,17 @@ let schemas={
 					template VARCHAR(50) NOT NULL DEFAULT `default`,\
 					FOREIGN KEY(id_type)						\
 						REFERENCES type_posts (id)				\
-						ON UPDATE NO ACTION,				\
+						ON UPDATE NO ACTION,					\
 					FOREIGN KEY(id_categorie)					\
 						REFERENCES categories (id)				\
-						ON UPDATE NO ACTION					\
-					)',
-
-	//Creation de la table de liaison tags_posts
+						ON UPDATE NO ACTION						\
+						)',									
+	//Creation de la table de liaison tags_posts 
 	tags_posts:'CREATE TABLE IF NOT EXISTS tags_posts ( 		\
 						id INTEGER PRIMARY KEY AUTOINCREMENT,   \
 						id_tag INTEGER NOT NULL,	            \
 						id_post INTEGER NOT NULL,				\
-						FOREIGN KEY(id_tag)						\
+						FOREIGN KEY(id_tag)					\
 							REFERENCES tags (id)				\
 							ON UPDATE NO ACTION,				\
 						FOREIGN KEY(id_post)					\

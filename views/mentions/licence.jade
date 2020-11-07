@@ -1,0 +1,129 @@
+extends layout
+block content
+	div#wrapper
+		include menu.jade
+		include header
+		p.titre-rubrique Informations de licence
+		section#row1-body.row.licence
+			div
+				p.
+					Le présent site est développé à partir de node.js, le framework express, la base de données mongo.js 
+					et angularjs,côté navigateur ainsi qu'une dizaine de modules nécessaires à la mise en place de 
+					l'ensemble des fonctionnalités.
+				p.
+					Vous trouverez ci dessous une liste exhaustive des différents modules node
+					implémentés ainsi que les termes de licence correspondants.
+				p.
+					Les parties de codes que j'ai crées sous angular sont libres de droit.
+				h2	Liste des modules
+				table
+					tr
+						th module
+						th Créateur(s)
+						th Licence
+						th URL
+					tr
+						td node.js
+						td joyent Inc
+						td MIT license
+						td
+							a(href='https://raw.githubusercontent.com/joyent/node/v0.10.35/LICENSE') licence
+					tr
+						td async
+						td Caolan McMaho
+						td MIT license
+						td
+							a(href='https://github.com/caolan/async') licence
+					tr
+						td body-parser
+						td Johnattan Ong & Douglas Christopher Wilson
+						td MIT license
+						td
+							a(href='#') licence
+					tr
+						td connect-mongo
+						td Casey Banner
+						td MIT license
+						td
+							a(href='https://github.com/kcbanner/connect-mongo') licence
+					tr
+						td cookie-parser
+						td TJ Holowaychuk
+						td MIT license
+						td 
+							a(href='git://github.com/expressjs/cookie-parser') licence
+					tr
+						td express
+						td TJ Holowaychuk
+						td MIT license
+						td
+							a(href='git://github.com/strongloop/express') licence
+					tr
+						td node-imagemagick
+						td Rasmus Andersson
+						td MIT license
+						td
+							a(href='http://github.com/rsms/node-imagemagick') licence
+					tr
+						td jade
+						td TJ Holowaychuk
+						td MIT license
+						td
+							a(href='git://github.com/visionmedia/jade') licence
+					tr
+						td mongoose
+						td Guillermo Rauch & Contributors
+						td MIT license
+						td 
+							a(href='http://mongoosejs.com') licence
+					tr
+						td mongoose-validator
+						td Lee Powel
+						td MIT license
+						td
+							a(href='https://github.com/leepowellcouk/mongoose-validator') licence
+					tr
+						td morgan
+						td Johnattan Ong
+						td MIT license
+						td
+							a(href='https://github.com/expressjs/morgan') licence
+					tr
+						td multer
+						td Hage Yaapa
+						td MIT license
+						td 
+							a(href='https://github.com/expressjs/multer') licence
+					tr
+						td node-mandrill
+						td Rockett Science group
+						td Apache Software license
+						td
+							a(href='http://www.apache.org/licenses/LICENSE-2.0') licence
+					tr
+						td javascript V8 Engine
+						td Google
+						td BSD license
+						td
+							a(href='https://code.google.com/p/v8/source/browse/trunk/LICENSE') licence
+					tr
+						td jquery.js
+						td Jquery Foundation
+						td MIT license
+						td
+							a(href='https://jquery.org/license/') licence
+					tr
+						td bootstrap.js
+						td Mark Otto & Jacob Thornton
+						td MIT licence
+						td
+							a(href='https://github.com/twbs/bootstrap/blob/master/LICENSE') licence
+					tr
+						td angularjs
+						td Google
+						td MIT licence
+						td
+							a(href='https://github.com/angular/angular.js/blob/master') licence
+		include footer
+
+

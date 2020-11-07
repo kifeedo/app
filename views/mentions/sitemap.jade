@@ -1,0 +1,32 @@
+extends layout
+block content
+	div#wrapper(ng-app='index',ng-controller='IndexCtl')
+		include menu.jade
+		include header
+		p.titre-rubrique Plan du site
+		section#row1-body.row.sitemap
+			h2
+				a(href="/") Accueil
+			h2
+				a(href="/actualites/") Agenda
+			ul
+				li(ng-repeat='actu in actualites')
+					a(href='/actualites/#{{actu._id}}') {{actu.title}}
+			h2
+				a(href="/galeries/") Galeries photos
+			ul
+				li(ng-repeat='gallery in galeries')
+					a(href='/galeries/{{gallery._id}}') {{gallery.title}}
+			h2
+				a(href="/presse/") Articles de presse
+			h2
+				a(href='/contact/') Formulaire de contact
+			h2	Les maîtres
+				ul
+					li
+						a(href="http://fr.wikipedia.org/wiki/Morihei_Ueshiba" target="_blank") O'Senseï
+					li
+						a(href="http://www.afatj.com/sensei.html" target="_blank") Hikitsushi Senseï
+					li
+						a(href="http://www.afatj.com/blaize.html" target="_blank") Gérard Blaize
+		include footer
