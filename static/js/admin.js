@@ -15,11 +15,13 @@ $(function(){
 			$("#td-"+field+"-"+id).empty();
 		})
 	})
+
 	$("#chgpwd").on('click',(event)=>{
 			event.PreventDefault;
 			event.StopPropagation;
 			$("#div-password-change").toggleClass("hide");
 	})
+
 	$("#spwd").on('click',(event)=>{
 			event.PreventDefault;
 			event.StopPropagation;
@@ -37,9 +39,9 @@ $(function(){
 				}
 			})
 	})
+
 	$("#check").on('click',(event)=>{
-		let ids=$("idslot").val()
-		if(event.target.val())
+		let ids=$("idslot").val();
 	})
 	
 

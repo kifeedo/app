@@ -75,16 +75,16 @@ app.get('/:schema/',(req,res)=>{
 	let tags=[]
 	let types_posts=[]
 	//requetes
-	api.select(schema).then(async(result)=>{
-							await api.get('parameter',['id'],[1]).then(res=>{
+	api.select(schema).then((result)=>{
+							api.get('parameter',['id'],[1]).then(res=>{
 								params=res[0]
 							})
 							fields=FIELDS[schema]
 							liste=result
-							await api.select('type_post').then(res=>{
+							api.select('type_post').then(res=>{
 							 types_posts=res
 							})
-							await api.select('categorie').then((res)=>{
+							api.select('categorie').then((res)=>{
 								categories=res
 							})
 							api.select('tag').then((res)=>{
@@ -92,7 +92,6 @@ app.get('/:schema/',(req,res)=>{
 							})
 							return api.model(schema)				
 	}).then((model)=>{
-
 			res.render('./admin/objet',{schema:schema,
 											params:params,
 											liste:liste,

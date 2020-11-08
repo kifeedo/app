@@ -1,7 +1,6 @@
 const sqlite3 = require('sqlite3').verbose()
 const fs=require('fs')
-
-const many_to_many_fields=['id_tag']
+const mtm_fields={'publication':['tags_posts']}
 api={
 
 	select:(schema)=>{
@@ -28,7 +27,7 @@ api={
 	pkeys:(objet)=>{
 		let fields=[]
 		for(f in objet){
-			if(many_to_many_fields.indexOf(f)!==-1 ){
+			if(mtm_fields.indexOf(f)!==-1 ){
 				fields.push(f)
 			}
 		}
@@ -44,18 +43,24 @@ api={
 								}
 								/*console.log('connexion a la base de donnees')*/
 								})
-		/*console.log(keys);
-		console.log(values);*/
-		let query="SELECT * FROM "+schema+"s WHERE "+keys.join("=? "+operator+" ")+"=?";
-		/*console.log(query)*/
-		db.all(query,values,(err,response)=>{
-			if(err){
-				error(err.message);
-			}
-			success(response);
-			})
-			db.close();
-		})
+								
+								let query="SELECT * FROM "+schema+"s WHERE "+keys.join("=? "+operator+" ")+"=?";
+								/*console.log(query)*/
+								db.all(query,values,(err,response)=>{
+									if(err){
+										error(err.message);
+									}
+									/*** TRAITEMENT DES RELATIONS MANY TO MANY ****/
+
+									if(mtm_fields.hasOwnProperty(schema)){
+										console.log(mtm_fields[schema])
+									}
+									
+									success(response);
+								})
+								db.close();
+
+					})//end of promise
 	},
 	model:(schema)=>{
 		return new Promise((success)=>{
@@ -99,7 +104,7 @@ api={
 						if(objet[field] && objet[field] != ""){
 							model[field] = objet[field];
 						}else{
-							delete model[field]
+							delete model[field];
 						}
 					}
 					let query_keys=Object.keys(model).join(",");
@@ -110,7 +115,17 @@ api={
 						if(err){
 							throw err;
 							error(err);
-
+						}
+						/**** Traitement des relations many to many ****/
+						if(mtm_fields.hasOwnProperty(schema)){
+								for(mtm in mtm_fields[schema]){
+									let spl_mtm=mtm_fields[schema][mtm].split('_');
+									console.log(spl_mtm)
+									let field1=spl_mtm[0].substring(0,spl_mtm[0].length-1)
+									let field2=spl_mtm[1].substring(0,spl_mtm[1].length-1)
+									let query = `INSERT INTO  ${mtm}  (${field1},${field2})`
+									console.log(query)
+								}
 						}
 						success(res);
 						db.close()
@@ -121,7 +136,6 @@ api={
 	},
 	post:(schema,datas)=>{
 		let objet=datas
-		console.log(objet)
 		let db = new sqlite3.Database('./admin/kifeedo.db',(err)=>{
 								if(err){
 									error(err)
