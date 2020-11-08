@@ -3,7 +3,8 @@ module.exports = {
     environment:'production',
    
     /*! **** LISTE DES APPLICATIONS ***/
-    apps : ['admin'
+    apps : ['admin',
+            'blog'
 
            ],
     /*! ***** JETON ANTI FIXATION DE SESSION *****/
