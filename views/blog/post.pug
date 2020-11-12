@@ -1,0 +1,4 @@
+h2 
+	a(href=`/blog/article/${post.id}`)= post.titre
+p#details Posté le #{new Date(post.created_at).toDateString()}
+div#resume !{post.resume}

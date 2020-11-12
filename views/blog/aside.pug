@@ -1,0 +1,28 @@
+h4 Recherche
+	form#search(action='/blog/search',method='POST')
+		input(type="text",name="pattern",id="pattern")
+		input(type='submit',value="Rechercher") 
+
+
+h4 Derniers Articles
+each article in last_posts
+	div#last-posts
+		p
+			a(href=`/blog/article/${article.id}`)
+				span= new Date(article.created_at).toDateString() 
+				span &nbsp;
+				span= article.titre
+
+h4 Cat&eacutegories	
+div#categories
+	ul#ul-categories
+		each categorie in categories
+			li
+				a(href=`/blog/categorie/${categorie.id}`) #{categorie.categorie}
+
+h4 Tags
+div#tags
+	each tag in tags
+		span
+			a(href=`/blog/tag/${tag.id}`) #{tag.tag} &nbsp;
+				

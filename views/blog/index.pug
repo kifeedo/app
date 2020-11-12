@@ -1,0 +1,12 @@
+extends ../layout
+block content
+	section#principal
+		div.row
+			aside#aside-left.d-sm-none.d-lg-block.col-3
+			div.col-xs-11.col-lg-6
+				each post in liste_posts
+					include post.pug
+
+			aside#aside-right.d-sm-none.d-lg-block.col-3
+				include aside.pug
+			

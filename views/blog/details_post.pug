@@ -1,0 +1,21 @@
+extends ../layout
+block content
+	section#principal
+		div.row
+			aside#aside-left.d-sm-none.d-lg-block.col-3
+			div.col-xs-11.col-lg-6
+				h2= post.titre
+				p#details
+					span Posté le #{new Date(post.created_at).toDateString()}
+					span &nbsp;
+					span Catégorie:&nbsp; #{post.categorie}
+				p#tags
+					p Mots-clés 
+						each tag in post.tags
+							span= tag
+							span &nbsp;
+
+				div#resume !{post.content}
+
+			aside#aside-right.d-sm-none.d-lg-block.col-3
+				include aside.pug
