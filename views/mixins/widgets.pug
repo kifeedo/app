@@ -3,20 +3,27 @@ mixin input_model(type,name,label,val,atrbs)
 		label(for= name)= label
 		input(type= type,name= name,id= name,value= val)&attributes(atrbs)
 		
-mixin select_line(name,label,values,display_field,val=[],atrbs)
-	if Array.isArray(val)===false
-		tab=Array.of(val)
-	else
-		tab=val
-	console.log(Array.isArray(val))
+mixin select_line(name,label,values,display_field,val,atrbs)
+
 	p.form-line
 		label(for=name)= label
 		select(id= name,name= name)&attributes(atrbs)
-			for value in values
-				if value['id'] == val
-					option(value= value['id'],selected)= value[display_field]
+			each v in values
+				if(val==v['id'])
+					option(value= v['id'],selected)= v[display_field]
 				else
-					option(value= value['id'])= value[display_field]
+					option(value= v['id'])= v[display_field]
+
+mixin select_line_multiple(name,label,values,display_field,val=[],atrbs)
+
+	p.form-line
+		label(for=name)= label
+		select(id= name,name= name,multiple='multiple')&attributes(atrbs)
+			each v in values
+				if(val.indexOf(v['id'])!==-1)
+					option(value= v['id'],selected)= v[display_field]
+				else
+					option(value= v['id'])= v[display_field]				
 					
 mixin input_line(name,label,val,atrbs)
 	+input_model("text",name,label,val,atrbs)

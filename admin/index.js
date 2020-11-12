@@ -92,6 +92,9 @@ app.get('/:schema/',(req,res)=>{
 							})
 							return api.model(schema)				
 	}).then((model)=>{
+			if(schema=='publication'){
+				model.tags_posts=[];
+			}
 			res.render('./admin/objet',{schema:schema,
 											params:params,
 											liste:liste,
@@ -132,9 +135,10 @@ app.get('/:schema/:id',(req,res)=>{
 					await api.select('categorie').then((res)=>{
 					categories=res
 					})
-					api.select('tag').then((res)=>{
+					await api.select('tag').then((res)=>{
 					tags=res
 					})
+					
 		res.render('./admin/objet',{schema:schema,
 									liste:liste,
 									action:'post',
@@ -177,6 +181,7 @@ app.post('/:schema/post/',upload,(req,res)=>{
 	let schema=req.params.schema
 	let message=""
 	let objet={datas:req.body,errors:{}}
+	console.log(objet)
 	if(req.files){
 		for(file in req.files){
 			commons.upload(req.files[file],config.UPLOADS_DIR+'/images',false)
@@ -218,5 +223,12 @@ app.post('/delfile',upload,(req,res)=>{
 
 		})
 									
+})
+app.get('/delete/:schema/:id',(req,res)=>{
+	let schema=req.params.schema;
+	let id=req.params.id;
+	api.delete(schema,id).then((result)=>{
+		res.redirect('/admin/'+schema);
+	});
 })
 module.exports=app

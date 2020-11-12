@@ -6,7 +6,7 @@ const port = 3000
 const path = require('path')
 const config = require('./config.js')
 const admin= require('./admin/index.js')
-/*const blog = require('./blog/index.js')*/
+const blog = require('./blog/index.js')
 const api= require('./admin/api.js')
 const users=require('./users/index.js')
 const commons=require('./commons.js')
@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(express.json())
 app.use('/admin',admin)
-/*app.use('/blog',blog)*/
+app.use('/blog',blog)
 
 app.get('/', (req, res) => {
   //res.send('Hello World!')

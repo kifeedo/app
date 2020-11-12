@@ -136,6 +136,9 @@ body {
   margin-right: auto;
   margin-bottom: 1.5em;
 }
+label {
+  vertical-align: top;
+}
 .hide {
   display: None;
 }
