@@ -139,6 +139,14 @@ body {
 label {
   vertical-align: top;
 }
+#search {
+  width: 90%;
+  font-size: 0.8em;
+  font-weight: lighter;
+}
+#search input[type=submit] {
+  font-weight: lighter;
+}
 .hide {
   display: None;
 }

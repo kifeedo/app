@@ -9,7 +9,7 @@ each article in last_posts
 	div#last-posts
 		p
 			a(href=`/blog/article/${article.id}`)
-				span= new Date(article.created_at).toDateString() 
+				span= new Date(article.created_at).toLocaleString() 
 				span &nbsp;
 				span= article.titre
 
