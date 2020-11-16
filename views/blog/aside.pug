@@ -1,27 +1,32 @@
-h4 Recherche
-	form#search(action='/blog/search',method='POST')
+h4.text-center Recherche
+form#search(action='/blog/search',method='POST')
+	p.ligne-search
 		input(type="text",name="pattern",id="pattern")
-		input(type='submit',value="Rechercher") 
+		label
+			input#search-input(type='submit',value="")
 
 
-h4 Derniers Articles
-each article in last_posts
-	div#last-posts
+
+h4.text-center 
+	Derniers Articles
+
+div#last-posts
+	each post in last_posts
 		p
-			a(href=`/blog/article/${article.id}`)
-				span= new Date(article.created_at).toLocaleString() 
+			a(href=`/blog/article/${post.id}`)
+				span Posté le #{post.created_at}
 				span &nbsp;
-				span= article.titre
+				span= post.titre
 
-h4 Cat&eacutegories	
+h4.text-center Cat&eacutegories	
 div#categories
 	ul#ul-categories
 		each categorie in categories
 			li
 				a(href=`/blog/categorie/${categorie.id}`) #{categorie.categorie}
 
-h4 Tags
-div#tags
+h4.text-center Tags
+div#tags.text-center
 	each tag in tags
 		span
 			a(href=`/blog/tag/${tag.id}`) #{tag.tag} &nbsp;

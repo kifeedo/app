@@ -1,4 +1,5 @@
 const sqlite3 = require('sqlite3').verbose()
+const commons = require('../commons.js')
 const fs=require('fs')
 const mtm_fields={'publication':[{'table':'tags_posts','get_field':'id_tag','field':'id_post'}]}
 api={
@@ -21,6 +22,13 @@ api={
 									if(err){
 										error(err)
 									}
+										for(r in response){
+											for(f in response[r]){
+												if(f=='created_at'){
+													response[r][f]=commons.datefr(commons.datetostr(new Date(response[r][f])))
+												}
+											}
+										}
 										success(response)
 								})
 								db.close()
@@ -39,15 +47,23 @@ api={
 	get:(schema,keys,values,comparator="=",operator="AND")=>{
 						return new Promise((success,error)=>{
 
-								let query="SELECT * FROM "+schema+"s WHERE "+keys.join(" "+comparator+"? "+operator+" ")+" "+comparator+" ? ";
-								/*console.log(query)*/
+								let query="SELECT * FROM "+schema+"s WHERE "+keys.join(" "+comparator+" ? "+operator+" ")+" "+comparator+" ? ";
+
 								function findAllElements(query,values){
+
 									return new Promise((succ,err)=>{
-										let db = api.connect();	
+										let db = api.connect();
 										db.all(query,values,(fail,elements)=>{
 												if(fail){
 													console.log(fail)
 													err(fail);
+												}
+												for(r in elements){
+													for(f in elements[r]){
+														if(f=='created_at'){
+															elements[r][f]=commons.datefr(commons.datetostr(new Date(elements[r][f])))
+														}
+													}
 												}
 												succ(elements)
 												

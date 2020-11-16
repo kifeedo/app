@@ -23,13 +23,13 @@ header#head-site.head-site
 				div.collapse.navbar-collapse.text-right(style="max-width:200px")
 			
 					if context.log != null
-						p.navbar-text
+						p.navbar-text.navbar-nav
 							span #{context.log.login}
-						p.navbar-text
+						p.navbar-text.navbar-nav
 							span
 								a(href="/logout/") &nbsp;Se deconnecter
 					else
-						p.navbar-text
+						p.navbar-text.navbar-nav
 							span.white
 								a(href="/admin") &nbsp;Se connecter
 	div#section-title.row.d-sm-block.d-md-block.d-lg-none.d-xl-none

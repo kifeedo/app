@@ -6,7 +6,7 @@ block content
 			div.col-xs-11.col-lg-6
 				h2= post.titre
 				p#details
-					span Posté le #{new Date(post.created_at).toDateString()}
+					span Posté le #{post.created_at}
 					span &nbsp;
 					span Catégorie:&nbsp; #{post.categorie}
 				p#tags

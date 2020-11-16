@@ -55,15 +55,17 @@ h1 {
   font-family: Fairy;
   line-height: 150px;
   height: 150px;
+  color: #00753F;
+  font-size: 4rem;
 }
 html {
-  font-size: 14pt;
+  font-size: 16pt;
   font-family: Chapaza;
 }
 body {
   font-family: Chapaza;
   background-color: #49bea1;
-  font-size: 0.9em;
+  font-size: 1rem;
 }
 #wrapper {
   max-width: 90%;
@@ -71,6 +73,13 @@ body {
   margin-right: auto;
   background-color: #fff;
   text-align: justify;
+}
+a {
+  color: #49bea1;
+}
+a:hover {
+  color: #49bea1;
+  text-decoration: none;
 }
 #principal {
   width: 100%;
@@ -139,13 +148,48 @@ body {
 label {
   vertical-align: top;
 }
+a {
+  color: #49bea1;
+  text-decoration: none;
+}
+#aside-right {
+  text-size: 1em;
+  line-height: 1.5em;
+}
+#aside-right h2 {
+  color: #00753F;
+}
+#aside-right li {
+  list-style-type: square;
+  color: #49bea1;
+}
 #search {
-  width: 90%;
+  width: 100%;
   font-size: 0.8em;
   font-weight: lighter;
 }
 #search input[type=submit] {
   font-weight: lighter;
+}
+.ligne-search {
+  height: 40px;
+  line-height: 40px;
+  margin-top: 0.5em;
+  vertical-align: top;
+}
+#pattern {
+  margin-top: 0;
+  height: 40px;
+  line-height: 40px;
+  width: 85%;
+}
+#search-input {
+  width: 40px;
+  height: 40px;
+  line-height: 30px;
+  background-image: url('/img/search_icon.png');
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
 }
 .hide {
   display: None;
@@ -160,4 +204,26 @@ label {
 .form-line select,
 .form-line textarea {
   width: 66%;
+}
+#admin-left-side ul {
+  list-style: none;
+}
+#admin-left-side li::before {
+  content: " . ";
+  font-size: 1.5em;
+  font-weight: 800;
+  color: #49bea1;
+}
+#admin-left-side a {
+  color: #49bea1;
+  text-decoration: none;
+  text-align: left;
+  font-size: 1.1em;
+  list-items-color: #49bea1;
+}
+#admin-left-side a:hover {
+  text-decoration: none;
+}
+#admin-wrapper h1 {
+  color: #49bea1;
 }

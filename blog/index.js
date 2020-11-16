@@ -66,7 +66,7 @@ app.use(express.json())
 app.get('/', (req, res) => {
   api.get('publication',['id_type'],[1]).then((res2)=>{
   			contextCreateBlog(req).then((datas)=>{
-		  			datas.last_posts=res2.slice(1,5);
+		  			datas.last_posts=res2.slice(0,4);
 		  			datas.liste_posts=res2;
 		  			res.render('./blog/index',datas)
 		  	})
@@ -87,11 +87,13 @@ app.get('/article/:id',(req,res)=>{
 			await api.get('categorie',['id'],[post[0].id_categorie]).then((rcat)=>{
 				categorie=rcat[0].categorie;
 			})
-			await api.get('tag',masque_nb_id_iter,post[0].tags_posts,'OR').then((rtags)=>{
-				tags=rtags.map(function(x){return x['tag']})
-			})
+			if(masque_nb_id_iter.length > 0){
+				await api.get('tag',masque_nb_id_iter,post[0].tags_posts,'OR').then((rtags)=>{
+					tags=rtags.map(function(x){return x['tag']})
+				})
+			}
 			await api.get('publication',['id_type'],[1]).then((lposts)=>{
-				last_posts=lposts.slice(1,5)	
+				last_posts=lposts.slice(0,4)	
 			})
 			datas.post.categorie=categorie;
 			datas.post.tags=tags;
@@ -105,7 +107,7 @@ app.post('/search/',(req,res)=>{
 	let last_posts=[];
 	api.get('publication',['id_type','titre','content'],[1,pattern,pattern],'LIKE','OR').then(async(posts)=>{
 		await api.get('publication',['id_type'],[1]).then((lposts)=>{
-				last_posts=lposts.slice(1,5)	
+				last_posts=lposts.slice(0,4)	
 		})
 		contextCreateBlog(req).then((datas)=>{
 		  			datas.last_posts=last_posts;
@@ -120,8 +122,24 @@ app.get('/tag/:id',(req,res)=>{
 	let id=parseInt(req.params.id)
 	let last_posts=[]
 	let posts=[]
-	api.get('tags_posts',['id_tag'],(id_posts)=>{
-		
+	api.get('publication',['id_type'],[1]).then((posts)=>{
+		last_posts=posts.slice(0,4);
+	})
+	api.get('tags_post',['id_tag'],[id]).then((id_posts)=>{
+		let masque_nb_id_iter=['id'];
+		let ind=1
+		for(ind in id_posts.length){
+				masque_nb_id_iter.push('id');
+			}
+		let values=id_posts.map(function(x){return x['id_post']})
+		api.get('publication',masque_nb_id_iter,values).then((posts)=>{
+			contextCreateBlog(req).then((datas)=>{
+						datas.liste_posts=posts
+						datas.last_posts=last_posts
+						res.render('./blog/index',datas)
+  				})
+
+		})
 	})
 })
 app.get('/categorie/:id',(req,res)=>{
@@ -129,7 +147,7 @@ app.get('/categorie/:id',(req,res)=>{
 	let last_posts=[]
 
 	api.get('publication',['id_type'],[1]).then((posts)=>{
-		last_posts=posts.slice(1,5);
+		last_posts=posts.slice(0,4);
 	})
 
 	api.get('publication',['id_type','id_categorie'],[1,id]).then((res2)=>{
@@ -140,22 +158,5 @@ app.get('/categorie/:id',(req,res)=>{
   				})
 	})
  })
-
-app.get('/tag/:id',(req,res)=>{
-	let id=parseInt(req.params.id)
-	let last_posts=[]
-
-	api.get('publication',['id_type'],[1]).then((posts)=>{
-		last_posts=posts.slice(1,5);
-	})
-	api.get('publication',['id_type','id_tag'],[1,id]).then((res2)=>{
-				contextCreateBlog(req).then((datas)=>{
-						datas.liste_posts=res2
-						datas.last_posts=last_posts
-						res.render('./blog/index',datas)
-  				})
-  		})
-})
-
 
 module.exports=app

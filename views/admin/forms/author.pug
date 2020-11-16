@@ -7,7 +7,7 @@ form#author-form(class="right-form",action=`/admin/author/${action}/`,enctype="m
 	+input_line_valid('prenom','Prénom :',objet.prenom,"",{})
 	+input_line_valid('nom','Nom :',objet.nom,"",{})
 	+text_line('login','Login :',objet.login,{})
-	+input_file('avatar','Fichier à inclure :','/uploads',objet.avatar,{})
+	+input_file('avatar','Avatar :','/uploads',objet.avatar,{})
 	input(type="hidden",id="password",name="password",value=`${objet.password}`)
 	p.form-line
 		label(for=name) Mot de passe :

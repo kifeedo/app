@@ -31,8 +31,26 @@ form#post-form(class="right-form",action=`/admin/publication/${action}/`,enctype
 		|	plugins:'image imagetools code advlist lists fullscreen autolink charmap preview anchor',
 		|	images_upload_url:'/admin/upload/',
 		|	automatic_uploads:false,
-		|	images_upload_credentials:false
-		|	});
+		|	images_upload_credentials:false,
+		|	style_formats: [
+		|				    {
+		|						title: 'Image Left',
+		|						selector: 'img',
+		|						styles: {
+		|							'float': 'left', 
+		|							'margin': '0 10px 0 10px'
+		|						}
+		|					},
+		|					{
+		|				 		title: 'Image Right',
+		|						selector: 'img', 
+		|						styles: {
+		|							'float': 'right', 
+		|							'margin': '0 0 10px 10px'
+		|						}
+		|					}
+		|				]
+		|				});
 		| 
 		
 	p.form-line
