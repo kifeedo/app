@@ -158,5 +158,18 @@ app.get('/categorie/:id',(req,res)=>{
   				})
 	})
  })
+app.get('/date/:date',(req,res)=>{
+
+})
+app.get('/calendar/:year/:month',(req,res)=>{
+	let year=req.params.year;
+	let month=req.params.month;
+	let reponse=[];
+	api.get('publication',['id_type','strftime("%Y-%m",date(created_at/1000,"unixepoch"))'],[1,[year,month].join('-')],'LIKE','AND').then((posts)=>{
+		reponse=posts.map(function(x){return {'day':x['created_at'].split('/')[0]}})
+		res.send(reponse);
+	})
+
+})
 
 module.exports=app

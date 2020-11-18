@@ -8,7 +8,7 @@ form#search(action='/blog/search',method='POST')
 
 
 h4.text-center 
-	Derniers Articles
+	| Derniers Articles
 
 div#last-posts
 	each post in last_posts
@@ -17,6 +17,10 @@ div#last-posts
 				span Posté le #{post.created_at}
 				span &nbsp;
 				span= post.titre
+h4.text-center Articles par dates
+div#calendrier
+	script(type="text/javascript")
+		| var calendrier_0=new  calendrier('calendrier','mise_a_jour','post.created_at','created_at');
 
 h4.text-center Cat&eacutegories	
 div#categories

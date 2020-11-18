@@ -20,7 +20,8 @@ module.exports = {
     scripts_common:['/jquery/dist/jquery.min.js',
                     '/bootstrap/dist/js/bootstrap.min.js',
                     '/tinymce/tinymce.min.js',
-                    '/js/admin.js'],
+                    '/js/admin.js',
+                    '/js/calendrier.js'],
     css_common:['/bootstrap/dist/css/bootstrap.min.css'],
     };
 
