@@ -20,8 +20,8 @@ var users={
                     var target=req.body.target_url;
                 }
                 api.get('author',['login','password'],[req.body.login,commons.create_sha1(req.body.password)]).then((resp,err)=>{
-                    console.log(req.body.password)
-                    console.log(commons.create_sha1(req.body.password))
+                   /*console.log(req.body.password)
+                    console.log(commons.create_sha1(req.body.password))*/
                         if(resp.length==0 || err){
                             req.sessionStore.log=null
                             req.sessionStore.alert="danger"
