@@ -99,7 +99,7 @@ a:hover {
   margin-right: auto;
 }
 #login label {
-  width: 25%;
+  width: 30%;
 }
 #login input {
   width: 50%;
@@ -162,6 +162,20 @@ a {
 #aside-right li {
   list-style-type: square;
   color: #49bea1;
+}
+@media only screen and (max-width: 600px) {
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  .vignette .image {
+    width: 200px;
+    height: 200px;
+  }
+  .illustration {
+    width: 200px;
+    height: 200px;
+  }
 }
 #calendrier {
   min-height: 400px;
