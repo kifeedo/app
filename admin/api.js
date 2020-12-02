@@ -48,7 +48,6 @@ api={
 						return new Promise((success,error)=>{
 
 								let query="SELECT * FROM "+schema+"s WHERE "+keys.join(" "+comparator+" ? "+operator+" ")+" "+comparator+" ? ";
-								
 								function findAllElements(query,values){
 
 									return new Promise((succ,err)=>{

@@ -158,7 +158,21 @@ app.get('/categorie/:id',(req,res)=>{
   				})
 	})
  })
-app.get('/date/:date',(req,res)=>{
+app.get('/date/:annee/:mois/:jour',(req,res)=>{
+	let annee=req.params.annee;
+	let mois=req.params.mois;
+	let jour=req.params.jour;
+	let last_posts=[];
+	api.get('publication',['id_type'],[1]).then((posts)=>{
+		last_posts=posts.slice(0,4);
+	})
+	api.get('publication',['id_type','strftime("%Y-%m-%d",date(created_at/1000,"unixepoch"))'],[1,[annee,mois,jour].join("-")],'LIKE','AND').then((resp)=>{
+		contextCreateBlog(req).then((datas)=>{
+		datas.last_posts=last_posts;
+		datas.liste_posts=resp;
+		res.render('./blog/index',datas);
+		})
+	})
 
 })
 app.get('/calendar/:year/:month',(req,res)=>{
@@ -171,5 +185,7 @@ app.get('/calendar/:year/:month',(req,res)=>{
 	})
 
 })
+
+
 
 module.exports=app

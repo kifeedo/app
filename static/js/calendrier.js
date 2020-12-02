@@ -453,11 +453,13 @@ class_commandes.prototype={
 action_calendrier:function(index){
 	var mois=parseInt(this.parent.tableau_date[index-1].mois)+1;
 	var journee=this.parent.tableau_date[index-1].jour+"/"+mois+"/"+this.parent.tableau_date[index-1].annee;
+	var iso=[this.parent.tableau_date[index-1].annee,mois,this.parent.tableau_date[index-1].jour].join("/");
 	switch (this.parent.fonction){
 		case "mise_a_jour" :
-	        document.querySelector("#"+this.parent.cible_calend).value=journee;
-	        calcul_age();
-	        $("#calend_"+this.parent.theme).hide();
+			window.location.replace(["/blog/date",iso].join('/'));
+			/*windows.location("/blog/date/")*/
+	        /*document.querySelector("#"+this.parent.cible_calend).value=journee;
+	        $("#calend_"+this.parent.theme).hide();*/
 	        break;
 	    default:
             break;

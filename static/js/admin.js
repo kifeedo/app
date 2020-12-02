@@ -43,6 +43,7 @@ $(function(){
 	$("#check").on('click',(event)=>{
 		let ids=$("idslot").val();
 	})
+
 	
 	/*! Calendrier mettre a jour le calendrier en recuperant les donnees
  * depuis le serveur et en ajoutant les marqueurs appropries */
